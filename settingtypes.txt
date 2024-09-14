@@ -1,0 +1,11 @@
+
+# Maximum allowed number of reflection sounds
+cave_explorer_max_reflections_sounds (Maximum reflection sounds) int 50 1 1000
+
+# Deaf amateur mode
+# Sound spread emulation works only in one direction
+cave_explorer_deaf_amateur (Deaf amateur mode) bool false
+
+# Distance limit for geologist's steel hammer
+cave_explorer_hammer_steel_max_distance (Geologist's steel hammer distance limit) int 30 5 50
+
