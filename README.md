@@ -1,6 +1,6 @@
-Minetest mod: echolocation
-=======================
-Mod which add echolocation for cave exploring.
+Minetest mod: `cave_explorer`
+=============================
+Mod which add geologist's hammer for acustic cave exploring.
 
 Source code:
 -----------------------
