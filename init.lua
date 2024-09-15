@@ -1,7 +1,7 @@
 
-cave_explorer = {}
+cave_exploring = {}
 
-cave_explorer.translator = minetest.get_translator("cave_explorer")
+cave_exploring.translator = minetest.get_translator("cave_exploring")
 
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 

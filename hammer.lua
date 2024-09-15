@@ -1,16 +1,16 @@
 
-local S = cave_explorer.translator
+local S = cave_exploring.translator
 
-local settings = cave_explorer.settings
+local settings = cave_exploring.settings
 
 local HUMAN_DIST = settings.hammer_steel_max_distance
 local max_reflections = settings.max_reflections
 
-local get_node_echo = cave_explorer.get_node_echo
+local get_node_echo = cave_exploring.get_node_echo
 
 if settings.deaf_amateur then
 	-- check just one dirrection
-	function cave_explorer.get_human_reflections(pos_src, dir)
+	function cave_exploring.get_human_reflections(pos_src, dir)
 		local area_end = vector.multiply(dir, HUMAN_DIST)
 		local p1 = vector.new(pos_src)
 		local p2 = vector.add(pos_src, area_end)
@@ -69,8 +69,8 @@ if settings.deaf_amateur then
 	end
 else
 	-- emulate sound spreading
-	function cave_explorer.get_human_reflections(pos_src, dir)
-		local area_begin, area_end, iterate = cave_explorer.get_areas(dir, HUMAN_DIST)
+	function cave_exploring.get_human_reflections(pos_src, dir)
+		local area_begin, area_end, iterate = cave_exploring.get_areas(dir, HUMAN_DIST)
 		local p1 = vector.add(pos_src, area_begin)
 		local p2 = vector.add(pos_src, area_end)
 		--print(dump({pos_src, dir}))
@@ -92,7 +92,7 @@ else
 			}
 		for r=1,HUMAN_DIST do
 			--print("range: "..r.." parents: "..dump(parents))
-			local ab, ae, iterate = cave_explorer.get_areas(dir, r)
+			local ab, ae, iterate = cave_exploring.get_areas(dir, r)
 			ab = vector.add(pos_src, ab)
 			ae = vector.add(pos_src, ae)
 			--print(minetest.pos_to_string(pos_src)..":")
@@ -153,23 +153,23 @@ else
 	end
 end
 
-minetest.register_tool("cave_explorer:hammer_steel", {
+minetest.register_tool("cave_exploring:hammer_steel", {
 	description = S("Geologist's hammer"),
-	inventory_image = "cave_explorer_hammer_steel.png",
+	inventory_image = "cave_exploring_hammer_steel.png",
 	on_use = function (itemstack, user, pointed_thing)
 		--print("use")
 		if pointed_thing.type == "node" then
 			local node = minetest.get_node(pointed_thing.under)
 			if get_node_echo(minetest.get_content_id(node.name)) > 0 then
-				local refs = cave_explorer.get_human_reflections(pointed_thing.under,
+				local refs = cave_exploring.get_human_reflections(pointed_thing.under,
 						vector.subtract(pointed_thing.under, pointed_thing.above))
 				--print(dump(refs))
 				local pos = vector.multiply(
 						vector.add(pointed_thing.under, pointed_thing.above), 0.5)
 				--print(pos)
-				minetest.sound_play("cave_explorer_tap_stone", {pos = pos, gain = 1}, true)
+				minetest.sound_play("cave_exploring_tap_stone", {pos = pos, gain = 1}, true)
 				for _, ref in pairs(refs) do
-					minetest.sound_play("cave_explorer_tap_stone_echo", {pos = pos, gain = ref.gain, pitch = ref.dist}, true)
+					minetest.sound_play("cave_exploring_tap_stone_echo", {pos = pos, gain = ref.gain, pitch = ref.dist}, true)
 				end
 				itemstack:add_wear(10)
 				return itemstack
@@ -177,3 +177,4 @@ minetest.register_tool("cave_explorer:hammer_steel", {
 		end
 	end
 })
+minetest.register_alias("cave_explorer:hammer_steel", "cave_exploring:hammer_steel")

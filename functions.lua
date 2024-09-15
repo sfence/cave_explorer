@@ -1,5 +1,5 @@
 
-function cave_explorer.get_node_echo(n_id)
+function cave_exploring.get_node_echo(n_id)
 	local name = minetest.get_name_from_content_id(n_id)
 	local echo = minetest.get_item_group(name, "stone")
 	local gain = 1.0 - 0.09/echo
@@ -129,7 +129,7 @@ local function iterate_area_surface_6(ab, ae, callback)
 	end
 end
 
-function cave_explorer.get_areas(dir, range)
+function cave_exploring.get_areas(dir, range)
 	local area_begin, area_end, iterate
 	if dir.x ~= 0 then
 		if dir.x > 0 then
